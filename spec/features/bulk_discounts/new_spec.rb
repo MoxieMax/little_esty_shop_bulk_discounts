@@ -30,6 +30,14 @@ RSpec.describe 'bulk discount show' do
       # # Then I am redirected back to the bulk discount index
       expect(current_path).to eq(merchant_bulk_discounts_path(@merchant1))
       
+      expect(page).to have_content('5%')
+      expect(page).to have_content('10')
+      
+      expect(page).to have_content('10%')
+      expect(page).to have_content('20')
+      
+      expect('5%').to appear_before('30%')
+      
       expect(page).to have_content('30%')
       expect(page).to have_content('50')
       
