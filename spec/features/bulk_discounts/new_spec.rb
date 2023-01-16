@@ -12,13 +12,20 @@ RSpec.describe 'bulk discount show' do
     # # Then I see a link to create a new discount
     # # When I click this link
     # # Then I am taken to a new page where I see a form to add a new bulk discount
-    it 'I can fill in the form' do
+    it 'has a form' do
+      expect(page).to have_field("Discount percentage")
+      expect(page).to have_field("Quantity threshold")
+      expect(page).to have_button("Submit")
+    end
+    
+    it 'can fill in the form' do
       # # When I fill in the form with valid data
       
       # # Then I am redirected back to the bulk discount index
       
       # # And I see my new bulk discount listed
     end
+    
   end
   
 end
