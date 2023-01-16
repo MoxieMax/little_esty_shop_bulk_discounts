@@ -38,10 +38,9 @@ RSpec.describe 'bulk discount show' do
       
       expect('5%').to appear_before('30%')
       
+      # # And I see my new bulk discount listed
       expect(page).to have_content('30%')
       expect(page).to have_content('50')
-      
-      # # And I see my new bulk discount listed
     end
   end
 end

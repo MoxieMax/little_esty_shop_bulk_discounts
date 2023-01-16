@@ -18,11 +18,12 @@
   <div class='mr-auto col-11'>
     <% @merchant.bulk_discounts.each do |discount| %>
     <div id="discount-<%= discount.id %>"
-      <ul><%= link_to "Discount No #{discount.id}", merchant_bulk_discount_path(@merchant, discount)%>
+      <ul><%= link_to "Discount #{discount.id}", merchant_bulk_discount_path(@merchant, discount)%>
         <li>Discount Percentage:
           <%= discount.discount_percentage %>%</li>
         <li>Quantity Threshold:
           <%= discount.quantity_threshold %></li>
+          <li><%= link_to "Delete Discount #{discount.id}", merchant_bulk_discount_path(@merchant, discount), method: :delete %></li>
           <br>
       </ul>
     </div>

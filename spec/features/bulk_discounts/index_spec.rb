@@ -40,13 +40,13 @@ RSpec.describe 'bulk discounts' do
     @transaction6 = Transaction.create!(credit_card_number: 879799, result: 1, invoice_id: @invoice_7.id)
     @transaction7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_2.id)
     
-    @discount1 = BulkDiscount.create!(discount_percentage: 5, quantity_threshold: 10, merchant_id: @merchant1.id)
-    @discount2 = BulkDiscount.create!(discount_percentage: 10, quantity_threshold: 20, merchant_id: @merchant1.id)
+    @discount1 = BulkDiscount.create!(discount_percentage: 10, quantity_threshold: 10, merchant_id: @merchant1.id)
+    @discount2 = BulkDiscount.create!(discount_percentage: 15, quantity_threshold: 20, merchant_id: @merchant1.id)
 
     visit merchant_bulk_discounts_path(@merchant1)
   end
   
-  describe 'user story 1' do
+  describe 'user story 1 #index' do
     # As a merchant
     # When I visit my merchant dashboard
     # Then I see a link to view all my discounts
@@ -60,7 +60,7 @@ RSpec.describe 'bulk discounts' do
         expect(page).to have_content(@discount1.quantity_threshold)
         
         # # # And each bulk discount listed includes a link to its show page
-        expect(page).to have_link("Discount No #{@discount1.id}")
+        expect(page).to have_link("Discount #{@discount1.id}")
       end
       
       within ("#discount-#{@discount2.id}") do
@@ -68,14 +68,14 @@ RSpec.describe 'bulk discounts' do
         expect(page).to have_content(@discount2.quantity_threshold)
         
         # # # And each bulk discount listed includes a link to its show page
-        expect(page).to have_link("Discount No #{@discount2.id}")
-        click_on "Discount No #{@discount2.id}"
+        expect(page).to have_link("Discount #{@discount2.id}")
+        click_on "Discount #{@discount2.id}"
         expect(current_path).to eq(merchant_bulk_discount_path(@merchant1.id, @discount2.id))
       end
     end
   end
   
-  describe 'user story 2' do
+  describe 'user story 2 #create' do
     it 'index page has a link to create a new discount' do
       # # As a merchant
       # # When I visit my bulk discounts index
@@ -88,6 +88,29 @@ RSpec.describe 'bulk discounts' do
       # # Then I am taken to a new page where I see a form to add a new bulk discount
       expect(current_path).to eq(new_merchant_bulk_discount_path(@merchant1))
       # # Any steps after this goes to the 'new'/new_spec page
+    end
+  end
+  
+  describe 'user story 3 #delete' do
+    # # As a merchant
+    # # When I visit my bulk discounts index
+    it 'has a link to delete each discount' do
+      # # Then next to each bulk discount I see a link to delete it
+      expect(page).to have_link("Delete Discount #{@discount1.id}")
+      expect(page).to have_link("Delete Discount #{@discount2.id}")
+    end
+    
+    it 'clicking the link deletes the discount' do
+      # # When I click this link
+      click_on "Delete Discount #{@discount1.id}"
+      
+      # # Then I am redirected back to the bulk discounts index page
+      expect(current_path).to eq(merchant_bulk_discounts_path(@merchant1))
+      visit current_path
+      
+      # # And I no longer see the discount listed
+      expect(page).to_not have_content(@discount1.discount_percentage)
+      expect(page).to_not have_content(@discount1.quantity_threshold)
     end
   end
 end
