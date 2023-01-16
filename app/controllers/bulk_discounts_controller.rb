@@ -8,6 +8,17 @@ class BulkDiscountsController < ApplicationController
     @discount = BulkDiscount.find(params[:id])
   end
   
+  def edit
+    @discount = BulkDiscount.find(params[:id])
+  end
+
+  def update
+    discount = BulkDiscount.find(params[:id])
+
+    discount.update(discount_params)
+    redirect_to merchant_bulk_discount_path(@merchant, discount)
+  end
+  
   def new
     @discount = BulkDiscount.new
   end

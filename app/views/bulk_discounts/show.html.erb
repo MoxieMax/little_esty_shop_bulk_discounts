@@ -17,5 +17,7 @@
     <ul>
       <li>Discount Percentage: <%= @discount.discount_percentage %>%</li>
       <li>Quantity Threshold: <%= @discount.quantity_threshold %></li>
+      <li>
+      <%= button_to "Edit Discount", edit_merchant_bulk_discount_path(@merchant, @discount), method: :get %></li>
     </ul>
 </body>
