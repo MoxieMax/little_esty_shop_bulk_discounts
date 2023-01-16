@@ -15,7 +15,6 @@ RSpec.describe 'bulk discount show' do
     # # Then I see a link to edit the bulk discount
     # # When I click this link
     it 'the edit page populates with filled fields' do
-      save_and_open_page
       # # Then I am taken to a new page with a form to edit the discount
       # # And I see that the discounts current attributes are pre-poluated in the form
       expect(page).to have_field("Discount percentage", with: 11)
