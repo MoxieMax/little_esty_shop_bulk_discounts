@@ -14,6 +14,8 @@ class BulkDiscountsController < ApplicationController
   
   def create
     discount = @merchant.bulk_discounts.create(discount_params)
+    discount.save
+    redirect_to merchant_bulk_discounts_path(@merchant)
   end
   
   private
