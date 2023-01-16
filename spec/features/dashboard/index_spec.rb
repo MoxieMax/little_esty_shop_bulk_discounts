@@ -126,24 +126,13 @@ RSpec.describe 'merchant dashboard' do
       @bd2 = BulkDiscount.create!(discount_percentage: 10, quantity_threshold: 20, merchant_id: @merchant1.id)
       
       # # Then I see a link to view all my discounts
-      expect(page).to have_link("Bulk Discounts")#link text
+      expect(page).to have_link("Bulk Discounts")
       
       # # When I click this link
       click_on "Bulk Discounts"
       
       # # Then I am taken to my bulk discounts index page
-      expect(current_path).to eq("/merchant/#{@merchant1.id}/bulk_discounts")#discounts index path
-      
-      # # Where I see all of my bulk discounts including their
-      # # percentage discount and quantity thresholds
-      # expect(page).to have_content()#list of discounts
-      # 
-      # within  do
-      #   # # And each bulk discount listed includes a link to its show page
-      #   expect(page).to have_link()#link text
-      #   click_on #link text
-      #   expect(current_path).to eq()#show page
-      # end
+      expect(current_path).to eq("/merchant/#{@merchant1.id}/bulk_discounts")
     end
   end
 end

@@ -1,3 +1,4 @@
+BulkDiscount.destroy_all 
 Transaction.destroy_all 
 InvoiceItem.destroy_all 
 Item.destroy_all 
@@ -42,5 +43,5 @@ transaction5 = Transaction.create!(credit_card_number: 102938, result: 1, invoic
 transaction6 = Transaction.create!(credit_card_number: 879799, result: 1, invoice_id: invoice_7.id)
 transaction7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: invoice_2.id)
 
-bd1 = BulkDiscount.create!(discount_percentage: 5, quantity_threshold: 10, merchant_id: @merchant1.id)
-bd2 = BulkDiscount.create!(discount_percentage: 10, quantity_threshold: 20, merchant_id: @merchant1.i)
+bd1 = BulkDiscount.create!(discount_percentage: 5, quantity_threshold: 10, merchant_id: merchant1.id)
+bd2 = BulkDiscount.create!(discount_percentage: 10, quantity_threshold: 20, merchant_id: merchant1.id)
