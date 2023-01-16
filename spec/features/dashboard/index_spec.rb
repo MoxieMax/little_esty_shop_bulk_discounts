@@ -131,7 +131,7 @@ RSpec.describe 'merchant dashboard' do
       save_and_open_page
       # # Where I see all of my bulk discounts including their
       # # percentage discount and quantity thresholds
-      expect(page).to have_content()#list of discount
+      expect(page).to have_content()#list of discounts
       
       within do
         # # And each bulk discount listed includes a link to its show page
