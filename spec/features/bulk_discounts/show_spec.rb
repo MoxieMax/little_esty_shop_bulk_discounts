@@ -46,6 +46,22 @@ RSpec.describe 'bulk discount show' do
     visit merchant_bulk_discounts_path(@merchant1)
   end
   
-  describe 'user story 2' do
+  describe 'user story 4' do
+    it 'as a merchant, when I visit my bulk discounts show page' do
+      # # When I visit my bulk discount show page
+      visit merchant_bulk_discount_path(@merchant1.id, @discount1.id)
+      
+      # # Then I see the bulk discount's quantity threshold and percentage discount
+      expect(page).to have_content(@discount1.discount_percentage)
+      expect(page).to have_content(@discount1.quantity_threshold)
+    end
+    
+    it 'as a merchant, when I visit my bulk discounts show page' do
+      visit merchant_bulk_discount_path(@merchant1.id, @discount2.id)
+      
+      # # Then I see the bulk discount's quantity threshold and percentage discount
+      expect(page).to have_content(@discount2.discount_percentage)
+      expect(page).to have_content(@discount2.quantity_threshold)
+    end
   end
 end
