@@ -37,6 +37,17 @@ RSpec.describe 'bulk discount show' do
       # # And I see that the discount's attributes have been updated
       expect(page).to have_content(15)
       expect(page).to have_content(20)
+      expect(page).to have_content("Discount Updated!")
+    end
+    
+    it 'will not submit a form with blank fields' do
+      fill_in 'Discount percentage', with: 0
+      fill_in 'Quantity threshold', with: 0
+      
+      click_on "Submit"
+      
+      expect(page).to have_content("Values must be above 0")
+      expect(current_path).to eq(edit_merchant_bulk_discount_path(@merchant1, @discount1))
     end
   end
 end
