@@ -69,4 +69,16 @@ describe 'Admin Invoices Index Page' do
       expect(@i1.status).to eq('completed')
     end
   end
+  describe 'user story 8' do
+    it 'shows the total revenue before and after discounts' do
+      # # As an admin
+      # # When I visit an admin invoice show page
+      
+      # # Then I see the total revenue from this invoice (not including discounts)
+      expect(page).to have_content("Total Revenue: $#{@i1.total_revenue}")
+      
+      # # And I see the total discounted revenue from this invoice which includes bulk discounts in the calculation
+      expect(page).to have_content("Total Revenue After Discounts: $#{@i1.discounted_revenue}")
+    end
+  end
 end

@@ -41,6 +41,15 @@ RSpec.describe 'bulk discount show' do
       # # And I see my new bulk discount listed
       expect(page).to have_content('30%')
       expect(page).to have_content('50')
+      
+      expect(page).to have_content("Discount has been created!")
+    end
+    
+    it "has a flash message and returns to 'create' the form is not filled in" do
+      click_on 'Submit'
+      
+      expect(current_path).to eq(new_merchant_bulk_discount_path(@merchant1))
+      expect(page).to have_content("Fields cannot be blank")
     end
   end
 end

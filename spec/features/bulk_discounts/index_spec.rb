@@ -110,6 +110,7 @@ RSpec.describe 'bulk discounts' do
       
       # # And I no longer see the discount listed
       expect(page).to_not have_content(@discount1.discount_percentage)
+      # save_and_open_page #There was an error being thrown here but it's not consistent
       expect(page).to_not have_content(@discount1.quantity_threshold)
     end
   end
