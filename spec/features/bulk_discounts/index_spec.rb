@@ -116,11 +116,16 @@ RSpec.describe 'bulk discounts' do
   end
   
   describe 'user story 9 #api' do
+    # # As a merchant
+    # # When I visit the discounts index page
     it 'has a list of the upcoming holidays' do
-      # # As a merchant
-      # # When I visit the discounts index page
       # # I see a section with a header of "Upcoming Holidays"
+      expect(page).to have_content("Upcoming Holidays")
+      
       # # In this section the name and date of the next 3 upcoming US holidays are listed.
+      # expect(page).to have_content(next_holiday)
+      # expect(page).to have_content(next_holiday)
+      # expect(page).to have_content(next_holiday)
     end
   end
 end
