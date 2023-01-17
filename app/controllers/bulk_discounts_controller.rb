@@ -14,9 +14,14 @@ class BulkDiscountsController < ApplicationController
 
   def update
     discount = BulkDiscount.find(params[:id])
-
-    discount.update(discount_params)
-    redirect_to merchant_bulk_discount_path(@merchant, discount)
+    
+    if discount.update(discount_params)
+      redirect_to merchant_bulk_discount_path(@merchant, discount)
+      flash[:notice] = "Discount Updated!"
+    else
+      redirect_to edit_merchant_bulk_discount_path(@merchant, discount)
+      flash[:alert] = "Values must be above 0"
+    end
   end
   
   def new

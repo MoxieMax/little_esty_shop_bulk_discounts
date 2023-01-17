@@ -113,6 +113,7 @@ RSpec.describe 'invoices show' do
       @ii1 = InvoiceItem.create!(invoice_id: @i1.id, item_id: @item1.id, quantity: 10, unit_price: 10, status: 2)
       
       @discount1 = BulkDiscount.create!(discount_percentage: 15, quantity_threshold: 10, merchant_id: @m1.id)
+      @discount2 = BulkDiscount.create!(discount_percentage: 20, quantity_threshold: 100, merchant_id: @m1.id)
       
       # # As a merchant
       # # When I visit my merchant invoice show page
@@ -131,6 +132,7 @@ RSpec.describe 'invoices show' do
       it 'has a link to the discount beside any invoice item that uses it' do
         # # Next to each invoice item I see a link to the show page for the bulk discount that was applied (if any)
         expect(page).to have_button("Discount #{@discount1.id}")
+        expect(page).to_not have_button("Discount #{@discount2.id}")
         
         click_button "Discount #{@discount1.id}"
         

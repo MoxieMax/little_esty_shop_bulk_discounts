@@ -114,4 +114,13 @@ RSpec.describe 'bulk discounts' do
       expect(page).to_not have_content(@discount1.quantity_threshold)
     end
   end
+  
+  describe 'user story 9 #api' do
+    it 'has a list of the upcoming holidays' do
+      # # As a merchant
+      # # When I visit the discounts index page
+      # # I see a section with a header of "Upcoming Holidays"
+      # # In this section the name and date of the next 3 upcoming US holidays are listed.
+    end
+  end
 end
