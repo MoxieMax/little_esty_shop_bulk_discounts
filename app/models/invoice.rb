@@ -27,4 +27,16 @@ class Invoice < ApplicationRecord
                  .sum('quantity * invoice_items.unit_price')
   end
   
+  def merchant_discounted_revenue(merchant)
+    merchant_items(merchant).sum do |items|
+      items.discount_unit_price
+    end
+  end
+
+  def discounted_revenue
+    invoice_items.sum do |item|
+      item.discount_unit_price
+    end
+  end
+  
 end

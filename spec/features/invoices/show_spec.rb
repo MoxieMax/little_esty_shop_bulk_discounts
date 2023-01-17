@@ -100,12 +100,30 @@ RSpec.describe 'invoices show' do
      end
   end
   
-  it '' do
-  # # 6: Merchant Invoice Show Page: Total Revenue and Discounted Revenue
-  # # As a merchant
-  # # When I visit my merchant invoice show page
-  # # Then I see the total revenue for my merchant from this invoice (not including discounts)
-  # # And I see the total discounted revenue for my merchant from this invoice which includes bulk discounts in the calculation
+  describe 'user story 6' do
+    it 'shows the total revenue after discounts' do
+      @m1 = Merchant.create!(name: 'Hair-y Care-y')
+      
+      @c1 = Customer.create!(first_name: 'Joey', last_name: 'Smith')
+      
+      @item1 = Item.create!(name: "Dry Shampoo", description: "This degreases your hair", unit_price: 10, merchant_id: @m1.id, status: 1)
+      
+      @i1 = Invoice.create!(customer_id: @c1.id, status: 2)
+      
+      @ii_1 = InvoiceItem.create!(invoice_id: @i1.id, item_id: @item1.id, quantity: 10, unit_price: 10, status: 2)
+      
+      @discount1 = BulkDiscount.create!(discount_percentage: 15, quantity_threshold: 10, merchant_id: @m1.id)
+      # # As a merchant
+      # # When I visit my merchant invoice show page
+      visit merchant_invoice_path(@m1, @i1)
+      
+      
+      # # Then I see the total revenue for my merchant from this invoice (not including discounts)
+      expect(page).to have_content("Total Revenue: #{@i1.total_revenue}")
+      
+      # # And I see the total discounted revenue for my merchant from this invoice which includes bulk discounts in the calculation
+      expect(page).to have_content("Total Revenue After Discounts: #{@i1.discounted_revenue}")
+    end
   end
 
 end

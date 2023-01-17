@@ -36,7 +36,7 @@ RSpec.describe Invoice, type: :model do
         @ii_3 = InvoiceItem.create!(invoice_id: @invoice1.id, item_id: @item3.id, quantity: 10, unit_price: 10, status: 2)
         @ii_4 = InvoiceItem.create!(invoice_id: @invoice1.id, item_id: @item4.id, quantity: 10, unit_price: 10, status: 1)
         
-        @discount1 = BulkDiscount.create!(discount_percentage: 10, quantity_threshold: 15, merchant_id: @merchant1.id)
+        @discount1 = BulkDiscount.create!(discount_percentage: 15, quantity_threshold: 10, merchant_id: @merchant1.id)
         @discount2 = BulkDiscount.create!(discount_percentage: 10, quantity_threshold: 10, merchant_id: @merchant2.id)
       end
       
@@ -58,11 +58,11 @@ RSpec.describe Invoice, type: :model do
         expect(@invoice1.merchant_total_revenue(@merchant2)).to eq(200)
       end
       
-      xit 'returns the merchant total revenue after discounts' do
-        expect(@invoice1.discounted_revenue).to eq(190)
+      it 'returns the merchant total revenue after discounts' do
+        expect(@invoice1.discounted_revenue).to eq(280)
         
-        expect(@invoice1.merchant_discounted_revenue(@merchant1)).to eq(100)
-        expect(@invoice1.merchant_discounted_revenue(@merchant2)).to eq(90)
+        expect(@invoice1.merchant_discounted_revenue(@merchant1)).to eq(100) #no discount applied
+        expect(@invoice1.merchant_discounted_revenue(@merchant2)).to eq(180) #10% off 10 items
       end
     end
   end
