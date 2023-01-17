@@ -101,7 +101,7 @@ RSpec.describe 'invoices show' do
   end
   
   describe 'user story 6' do
-    it 'shows the total revenue after discounts' do
+    before :each do
       @m1 = Merchant.create!(name: 'Hair-y Care-y')
       
       @c1 = Customer.create!(first_name: 'Joey', last_name: 'Smith')
@@ -110,20 +110,32 @@ RSpec.describe 'invoices show' do
       
       @i1 = Invoice.create!(customer_id: @c1.id, status: 2)
       
-      @ii_1 = InvoiceItem.create!(invoice_id: @i1.id, item_id: @item1.id, quantity: 10, unit_price: 10, status: 2)
+      @ii1 = InvoiceItem.create!(invoice_id: @i1.id, item_id: @item1.id, quantity: 10, unit_price: 10, status: 2)
       
       @discount1 = BulkDiscount.create!(discount_percentage: 15, quantity_threshold: 10, merchant_id: @m1.id)
+      
       # # As a merchant
       # # When I visit my merchant invoice show page
       visit merchant_invoice_path(@m1, @i1)
-      
-      
+    end
+    
+    it 'shows the total revenue with and without discounts' do
       # # Then I see the total revenue for my merchant from this invoice (not including discounts)
       expect(page).to have_content("Total Revenue: #{@i1.total_revenue}")
       
       # # And I see the total discounted revenue for my merchant from this invoice which includes bulk discounts in the calculation
       expect(page).to have_content("Total Revenue After Discounts: #{@i1.discounted_revenue}")
     end
+    
+    describe 'user story 7' do
+      it 'has a link to the discount beside any invoice item that uses it' do
+        # # Next to each invoice item I see a link to the show page for the bulk discount that was applied (if any)
+        expect(page).to have_button("Discount #{@discount1.id}")
+        
+        click_button "Discount #{@discount1.id}"
+        
+        expect(current_path).to eq(merchant_bulk_discount_path(@m1, @discount1))
+      end
+    end
   end
-
 end
