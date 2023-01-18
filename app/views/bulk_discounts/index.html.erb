@@ -15,9 +15,9 @@
   <div class="row">
     <h2 class='mr-auto col-12'>Upcoming Holidays</h2>
     <% @holidays.each do |holiday| %>
-    <p class="col">
-        <%= holiday.name %>
-        <%= holiday.date %></p>
+    <p class="col"></p>
+        <h3><%= holiday.name %></h3>
+        <p><%= holiday.date %></p>
         <% end %>
   </div>
   
