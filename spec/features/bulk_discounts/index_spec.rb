@@ -40,7 +40,7 @@ RSpec.describe 'bulk discounts' do
     @transaction6 = Transaction.create!(credit_card_number: 879799, result: 1, invoice_id: @invoice_7.id)
     @transaction7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_2.id)
     
-    @discount1 = BulkDiscount.create!(discount_percentage: 10, quantity_threshold: 10, merchant_id: @merchant1.id)
+    @discount1 = BulkDiscount.create!(discount_percentage: 13, quantity_threshold: 10, merchant_id: @merchant1.id)
     @discount2 = BulkDiscount.create!(discount_percentage: 15, quantity_threshold: 20, merchant_id: @merchant1.id)
 
     visit merchant_bulk_discounts_path(@merchant1)
@@ -116,11 +116,22 @@ RSpec.describe 'bulk discounts' do
   end
   
   describe 'user story 9 #api' do
+    # # As a merchant
+    # # When I visit the discounts index page
     it 'has a list of the upcoming holidays' do
-      # # As a merchant
-      # # When I visit the discounts index page
       # # I see a section with a header of "Upcoming Holidays"
+      expect(page).to have_content("Upcoming Holidays")
+      # save_and_open_page
+    
       # # In this section the name and date of the next 3 upcoming US holidays are listed.
+      expect(page).to have_content("Presidents Day")
+      expect(page).to have_content("2023-02-20")
+      
+      expect(page).to have_content("Good Friday")
+      expect(page).to have_content("2023-04-07")
+      
+      expect(page).to have_content("Memorial Day")
+      expect(page).to have_content("2023-05-29")
     end
   end
 end
