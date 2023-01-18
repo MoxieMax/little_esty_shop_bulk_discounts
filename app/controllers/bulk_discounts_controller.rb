@@ -1,5 +1,6 @@
 class BulkDiscountsController < ApplicationController
   before_action :current_merchant
+  
   def index
     @merchant = Merchant.find(params[:merchant_id])
   end

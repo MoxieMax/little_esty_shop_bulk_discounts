@@ -123,9 +123,9 @@ RSpec.describe 'bulk discounts' do
       expect(page).to have_content("Upcoming Holidays")
       
       # # In this section the name and date of the next 3 upcoming US holidays are listed.
-      # expect(page).to have_content(next_holiday)
-      # expect(page).to have_content(next_holiday)
-      # expect(page).to have_content(next_holiday)
+      expect(page).to have_content("Presidents Day")
+      expect(page).to have_content("Good Friday")
+      expect(page).to have_content("Memorial Day")
     end
   end
 end
